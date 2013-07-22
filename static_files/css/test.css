@@ -1,0 +1,20 @@
+.target {
+    height: 30px;
+    width: 30px;
+    border-style: solid;
+    border-width: 2px;
+    text-align: center;
+}
+.color {
+    height: 15px;
+    width: 15px;
+    border-style: solid;
+    border-width: 2px;
+}
+.droparea {
+    height: 100px;
+    width: 100px;
+    border-style: solid;
+    border-width: 2px;
+}
+

@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="/static/css/test.css">
+  <title>Javascript drag, drop and change style test</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.2/jquery-ui.js"></script>
+  <script>
+  $(function () {
+    $( ".draggable" ).draggable();
+    $( "#droppable" ).droppable({
+      drop: function( event, ui ) {
+        if(ui.draggable.hasClass("target")){
+         var class_name = ui.draggable.attr("class");
+         alert(class_name);
+         str = $.trim(class_name).split(" ");
+         $('.' + str[0]).css("color", "white");
+
+	}
+	else {
+
+         var class_name = document.getElementById("text").value;
+         var color_name = ui.draggable.attr("id");
+         if(class_name){
+         alert(class_name);
+         $('.' + class_name).css("color", color_name);}
+         else {
+         alert("You haven't entered a category in the text field, so no target boxes will be colored");
+         }
+}
+        $( this )
+          .addClass( "ui-state-highlight" )
+         .find( "p" )
+          .html( "Color dropped!" );
+      }
+    });
+  });
+  </script>
+</head>
+<body>
+<div id="t1" class="category1 draggable target" >
+  t1
+</div>
+<div id="t2" class="category2 draggable target" >
+  <p>t2</p>
+</div>
+<div id="t3" class="category1 draggable target" >
+  <p>t3</p>
+</div>
+<div id="t4" class="category2 draggable target" >
+  <p>t4</p>
+</div>
+<br /><br />
+<br /><br />
+<div id="red" class="draggable color" style="color:red;" >
+  <p>red</p>
+</div>
+<div id="green" class="draggable color" style="color:green;">
+  <p>green</p>
+</div>
+<div id="yellow" class="draggable color" style="color:yellow;">
+  <p>yellow</p>
+</div>
+<div id="blue" class="draggable color" style="color:blue;">
+  <p>blue</p>
+</div>
+<br /><br />
+<br /><br />
+<form>
+<textarea id="text" /></textarea>
+<br /><br />
+<br /><br />
+<div id="droppable" class="droparea">
+  <p>Drop here</p>
+</div>
+</form>
+</body>
+</html>

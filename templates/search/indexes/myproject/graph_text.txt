@@ -1,0 +1,5 @@
+{{ object.name }}
+{{ object.explanation }}
+{{ object.type }}
+{{ object.slug }}
+{{ object.ascii_explanation }}

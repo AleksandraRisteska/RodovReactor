@@ -1,0 +1,67 @@
+{% extends "header.html" %}
+{% load get_range %}
+{% load subtract %}
+{% block title %}{% endblock %}
+{% block link_logo %}/home/{% endblock %}
+{% block logo %}/media/thumbnails/logo-plain.png{% endblock %}
+{% block type %}<a href="{{ research.0.get_absolute_url }}">Сите графици од истражувањето {{ research.0.name }}</a>{% endblock %}
+{% block content %}
+
+    <!-- BREADCRUMBS -->
+    <div class="span12">
+      <div class="breadcrumbs">
+        <a href="http://rodovreactor.mk/home/" class="home"><span>Почетна</span></a>
+        <a href="{{ research.0.get_absolute_url }}"><span>{{ research.0.name|truncatechars:30 }}</span></a>
+      </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    
+    <div class="span9">
+      <div> {% for research in researches %}
+        <!--BOX FOR EACH LISTED ITEM-->
+        <div class="media box">
+          <!--RESEARCH THUMBNAIL-->
+            <div class="pull-left graph-link" style="background-image: url('{{ research.image.url }}{% if research.thumbnail %}{{ research.thumbnail.url }}{% endif %}');"><a href="{{ research.get_absolute_url }}"></div>
+
+
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="{{ research.get_absolute_url }}/">{{ research.name }}</a></h4>
+            <div class="intro">
+            {{ research.abstract|truncatechars:250|safe }}
+            {{ research.explanation|truncatechars:250|safe }}
+           </div>
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+        <!--END BOX-->
+
+       {% endfor %}
+       {% if count > 5 %}
+	<div id="all-pages">
+		{% if researches.has_previous %}
+		    <div id="previous-page"><a href="?page={{ researches.previous_page_number }}" >« претходна</a></div>
+		{% endif %}
+      <div id="pages">
+        <ul>
+                  {% for page_number in researches.paginator.num_pages|get_range %}
+  			{% ifequal page_number researches.number|subtract:1 %}
+  			    <li class="currentpage">{{ researches.number}}</li>
+  			{% else %}
+  			    <li> <a href="?page={{page_number|add:1}}">{{page_number|add:1}}</a> </li>
+  			{% endifequal %}
+  		    {% endfor %}</ul>
+      </div>
+		{% if researches.has_next %}
+		    <div id = "next-page"><a href="?page={{ researches.next_page_number }}">следна »</a></div>
+		{% endif %}
+	</div>
+        {% endif %}
+      </div>
+
+
+    </div> <!--END LISTING-->
+
+{% endblock %}

@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="/static/img/logo-icon.ico">
+  <meta property="og:image" content="/static/img/prof-pic.png" />
+  <meta property="og:description"content="Родов Реактор - Со информирани ставови до еднаквост!"/>
+  <!--STYLES-->
+  <link rel="stylesheet" href="/static/css/bootstrap.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/static/css/bootstrap-responsive.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="/static/css/style.css" type="text/css" media="screen">
+  <!--END STYLES-->
+  <meta charset="UTF-8">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+  <title>Родов Реактор :::: Со информирани ставови до еднаквост</title>
+
+</head>
+<body>
+  <div class="wrapper">
+      <div class="span3 pull-left">
+        <a href="/home/" id="logo"></a>
+      </div>
+  <div class="container">
+      <div class="span9 offset3">
+          <div class="span7">
+            <div class="navbar">
+                <div class="navbar-inner" style="-webkit-border-radius: 0; -moz-border-radius: 0; border-radius: 0;">
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </a>
+                    <div class="nav-collapse">
+                      <nav>
+                        <ul class="nav">
+                          <li><a href="/home/">почетна</a></li>
+                          <li><a href="/project/">за страницата</a></li>
+                          <li><a href="/about/">за нас</a></li>
+                          <li><a href="/contact/">контакт</a></li>
+                          <li>
+    <form action="/home/search/?q=">
+                           <input type="text" name="q" id="id_q">
+                           <button type="submit" class="search-btn"><span</span></button>
+                         </form></li>
+                        </ul>
+                      </nav>
+                    </div> <!--end .nav-collapse-->
+                 </div><!--end .navbar-inner-->
+              </div><!--end .navbar-->
+              <h3 class="main-title">Со информирани ставови до еднаквост!</h3>
+            </div>
+
+           <div class="span2 pull-right">
+              <div class="span1">
+                <div class="media-links">
+                  <a title="Share me!" href="http://www.facebook.com/share.php?u=http://rodovreactor.mk" class="fb"><span></span></a>
+                  <a href="https://twitter.com/share?text=Родов Реактор%20-%20Со%20информирани%20ставови%20до%20еднаквост%20#rodovreactor" data-url="http://rodovreactor.mk" data-text="Родов Реактор - Со информирани ставови до еднаквост! #rodovreactor" title="Tweet me!" data-hashtags="desonanz" class="tw"><span></span>
+                  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+                  </a>
+                  <a href="https://plusone.google.com/_/+1/confirm?hl=en&url=http://rodovreactor.mk" class="gp"><span></span></a>
+                  <a href="#" class="gh"><span></span></a>
+                </div>
+              </div> <!--end .span1 and .media-links-->
+
+              <div class="span1 pull-right">
+                <div class="deco"></div>
+              </div>
+
+          </div>
+      </div>
+      <div class="row">
+      <div class="span12 work">
+        <ul>
+          {% for s in subject %}
+          <li id = "{{ s.url_id }}">          
+            <a href="/subject/{{ s.url_id }}" >
+
+              <span>{{ s.short_name|safe }}</span>
+            </a>
+            <div></div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+      
+    </div> <!-- end row-->
+
+
+
+    <!-- FOOTER -->
+    <div class="row">
+      <div class="span12">
+          <div class="footer">
+            <div id="reactor"></div>
+            <div id="disclaimer">
+      Родов Реактор е креиран и одржуван од страна на <a href="http://reactor.org.mk/" target="_blank">Реактор - Истражување во акција</a>, во рамки на програмата за Родова еднаквост. Податоците содржани на овој сајт се собирани од различни извори, но најчесто од <a href="http://www.stat.gov.mk/" target="_blank">Државниот завод за статистика</a>, како и од истражувања на Реактор.
+            </div>
+            <div style="clear: both; padding: 10px 0;font-size: 11px;   line-height:2em; text-align: center;">
+              <a target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license" style="margin-right: 10px; display: block;">
+<img src="http://i.creativecommons.org/l/by-nc-nd/3.0/88x31.png" style="border-width:0" alt="Creative Commons License">
+</a>
+               This work is licensed under a
+<a target="_blank" href="http://creativecommons.org/licenses/by-nc-nd/3.0/" rel="license">Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License</a>
+            </div>
+          </div>
+      </div>
+    </div>
+
+  </div> <!--end container-->
+
+</div> <!--end wrapper-->
+
+  <!--JAVA SCRIPT--> 
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+  <script src="/static/js/bootstrap.min.js"></script>
+  <!--<script type="text/javascript">
+    $(document).ready(function(){
+    $(".work ul li a").hover(function(){
+        var ch = $(this).children();
+        console.log(ch);
+        $(this).children('div').slideDown(500);   
+    },function(){
+     $(this).children('div').slideUp(300);      
+    });
+});
+  </script> -->
+  <!--END JAVA SCRIPT-->
+
+</body>
+</html>

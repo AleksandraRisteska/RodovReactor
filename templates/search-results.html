@@ -1,0 +1,75 @@
+{% extends "header.html" %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="span9">
+      <div>
+        {% for research in researches %}
+        <!--SHOWING HOW MANY RESULTS-->
+        <h4>1-3 од 5 резултати од пребарување за “nasilstvo”</h4>
+        
+        <!--BOX FOR EACH RESEARCH-->
+        <div class="media box">
+          <!--RESEARCH THUMBNAIL-->
+          <a class="pull-left"><div class="mask"><img src="http://placekitten.com/300/300"  /></div></a>
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="#">{{ research.name }}</a></h4>
+            <div class="intro">
+            {{ research.abstract|truncatechars:250 }}
+           </div>
+                      <!--MORE-->
+           <h5><a href="/single_data/" class="more">Повеќе...</a></h5>
+           <!--END MORE-->
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+        <!--END BOX-->
+       {% endfor %}
+      </div>
+    </div> <!--END RESEARCH-->
+
+    <div class="span3">
+                <div class="sidebar">
+                      <form class="navbar-form pull-right">
+                        <input type="text">
+                        <button type="submit" class="search-btn"></button>
+                      </form>
+                </div>
+                <br/>
+                <div class="sidebar">
+                  <h4>Други графици од истражувањето</h4>
+                  <div class="sidebar-links">
+                    <a href="">Today is for my cause a day of days</a>
+                    <a href="">Summoning artists to participate</a>
+                    <a href="">Seems something artists ought to celebrate</a>
+                    <a href="">In the august occasions of the state</a>
+                    <a href="">In the august occasions of the state</a>
+                  </div>
+                </div>
+
+                <div class="sidebar">
+                  <h4>Други графици од истражувањето</h4>
+                  <div class="sidebar-links">
+                    <a href="">Today is for my cause a day of days</a>
+                    <a href="">Summoning artists to participate</a>
+                    <a href="">Seems something artists ought to celebrate</a>
+                    <a href="">In the august occasions of the state</a>
+                    <a href="">In the august occasions of the state</a>
+                  </div>
+                </div>
+
+                 <div class="sidebar">
+                  <h4>Други графици од истражувањето</h4>
+                  <div class="sidebar-links">
+                    <a href="">Today is for my cause a day of days</a>
+                    <a href="">Summoning artists to participate</a>
+                    <a href="">Seems something artists ought to celebrate</a>
+                    <a href="">In the august occasions of the state</a>
+                    <a href="">In the august occasions of the state</a>
+                  </div>
+                </div>
+
+    </div>
+{% endblock %}

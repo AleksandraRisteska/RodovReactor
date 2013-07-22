@@ -1,0 +1,123 @@
+{% extends "header.html" %}
+{% load get_range %}
+{% load subtract %}
+{% block subject %}СО ИНФОРМИРАНИ СТАВОВИ ДО ЕДНАКВОСТ{% endblock %}
+{% block link_logo %}/home/{% endblock %}
+{% block logo %}/media/thumbnails/logo-plain.png{% endblock %} 
+{% block content %}
+    <div class="span9 search-results">
+
+      <form method="get" action=".">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Барај" class="gray-btn btn-normal pull-right">
+                </td>
+            </tr>
+        </table> 
+    </form>
+        {% if query %}
+            <h4>Резултати од пребарувањето на <span class="keyword">"{{ query }}"</span></h4>
+                       <h4 class="search-results-research">Истражувања</h4>
+
+            {% for result in page.object_list %}
+            {% if result.object.abstract %}
+                       <div class="media box {% if result.object.abstract %} research {% endif %}{% if result.object.explanation and result.object.type == 'infografik' %} infografik {% endif %}{% if result.object.explanation and result.object.type != 'infografik' %} grafik {% endif %}">
+          <!--RESEARCH THUMBNAIL-->
+          <div class="pull-left graph-link" style="background-image: url('{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}');"><a href="{{ result.object.get_absolute_url }}">
+            <!--<img src="{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}"  /> -->
+          </a></div>
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h4>
+            <div class="intro">
+              {{ result.object.explanation|safe }}
+              {{ result.object.abstract|safe }}
+            </div>
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+            {% endif %}
+
+            {% empty %}
+                <p>Нема пронајдени резултати.</p>
+            {% endfor %}
+                       <h4 class="search-results-infograph">Инфографици</h4>
+            {% for result in page.object_list %}
+            {% if result.object.type == 'infografik' %}
+                       <div class="media box {% if result.object.abstract %} istrazuvanje {% endif %}{% if result.object.explanation and result.object.type == 'infografik' %} infografik {% endif %}{% if result.object.explanation and result.object.type != 'infografik' %} grafik {% endif %}">
+
+          <!--RESEARCH THUMBNAIL-->
+          <div class="pull-left graph-link" style="background-image: url('{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}');"><a href="{{ result.object.get_infographs_url }}">
+            <!--<img src="{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}"  /> -->
+          </a></div>
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="{{ result.object.get_infographs_url }}">{{ result.object.name }}</a></h4>
+            <div class="intro">
+              {{ result.object.explanation|safe }}
+              {{ result.object.abstract|safe }}
+            </div>
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+           {% endif %}
+            {% empty %}
+                <p>Нема пронајдени резултати.</p>
+            {% endfor %}
+                       <h4 class="search-results-graph">Графици</h4>
+
+            {% for result in page.object_list %}
+            {% if result.object.type != 'infografik' and result.object.explanation %}
+                       <div class="media box {% if result.object.abstract %} research {% endif %}{% if result.object.explanation and result.object.type == 'infografik' %} infografik {% endif %}{% if result.object.explanation and result.object.type != 'infografik' %} grafik {% endif %}">
+
+          <!--RESEARCH THUMBNAIL-->
+          <div class="pull-left graph-link" style="background-image: url('{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}');"><a href="{{ result.object.get_absolute_url }}">
+            <!--<img src="{{ result.object.image.url }}{% if result.object.thumbnail %}{{ result.object.thumbnail.url }}{% endif %}"  /> -->
+          </a></div>
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a></h4>
+            <div class="intro">
+              {{ result.object.explanation|safe }}
+              {{ result.object.abstract|safe }}
+            </div>
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+           {% endif %}
+            {% empty %}
+                <p>Нема пронајдени резултати.</p>
+            {% endfor %}
+                <div id="all-pages">
+                        {% if page.has_previous %}
+                            <div id="previous-page"><a href="?q={{ query }}&amp;page={{ page.previous_page_number }}" >« претходна</a></div>
+                        {% endif %}
+              <div id="pages">
+                <ul>
+                          {% for page_number in page.paginator.num_pages|get_range %}
+                                {% ifequal page_number page.number|subtract:1 %}
+                                    <li class="currentpage">{{ page.number}}</li>
+                                {% else %}
+                                    <li> <a href="?q={{ query }}&amp;page={{page_number|add:1}}">{{page_number|add:1}}</a> </li>
+                                {% endifequal %}
+                            {% endfor %}</ul>
+              </div>
+                        {% if page.has_next %}
+                            <div id = "next-page"><a href="?q={{ query }}&amp;page={{ page.next_page_number }}">следна »</a>     </div>
+                   {% endif %}
+             </div> <!-- end all-pages -->
+
+</div>
+
+
+{% endif %}
+{% endblock %}

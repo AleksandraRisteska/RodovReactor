@@ -1,0 +1,42 @@
+{% extends "header.html" %}
+{% block subject %}СО ИНФОРМИРАНИ СТАВОВИ ДО ЕДНАКВОСТ{% endblock %}
+{% block link_logo %}/home/{% endblock %}
+{% block logo %}/media/thumbnails/logo-plain.png{% endblock %} 
+{% block content %}
+    <div class="span9">
+
+    <!--<form method="get" action=".">
+        <table>
+            {{ form.as_table }}
+            <tr>
+                <td>&nbsp;</td>
+                <td>
+                    <input type="submit" value="Барај">
+                </td>
+            </tr>
+        </table> -->
+
+        {% if query %}
+            <h4>Резултати од пребарувањето</h4>
+
+            {% for result in page.object_list %}
+                <p class="search-results">
+                    <a href="{{ result.object.get_absolute_url }}">{{ result.object.name }}</a>
+                </p>
+            {% empty %}
+                <p>Нема пронајдени резултати.</p>
+            {% endfor %}
+
+            {% if page.has_previous or page.has_next %}
+                <div>
+                    {% if page.has_previous %}<a href="?q={{ query }}&amp;page={{ page.previous_page_number }}">{% endif %}&laquo; Previous{% if page.has_previous %}</a>{% endif %}
+                    |
+                    {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+                </div>
+            {% endif %}
+        {% else %}
+            {# Show some example queries to run, maybe query syntax, something else? #}
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

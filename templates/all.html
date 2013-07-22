@@ -1,0 +1,182 @@
+{% extends "header.html" %}
+{% load get_range %}
+{% load subtract %}
+{% block title %}{% endblock %}
+{% block link_logo %}/home/{% endblock %}
+{% block logo %}/media/thumbnails/logo-plain.png{% endblock %}
+{% block type %}Сите {% if type == 'data' %}Истражувања{% endif %}{% if type == 'graphs' %}Графици{% endif %}{% if type == 'infographs' %}Инфографици{% endif %}{% endblock %}
+{% block content %}
+
+    <!-- BREADCRUMBS -->
+    <div class="span12">
+      <div class="breadcrumbs">
+        <a href="http://rodovreactor.mk/home/" class="home"><span>Почетна</span></a>
+        <a href="#"><span>Сите {% if type == 'data' %}истражувања{% endif %}{% if type == 'graphs' %}графици{% endif %}{% if type == 'infographs' %}инфографици{% endif %}</span></a>
+      </div>
+    </div>
+    <!-- END BREADCRUMBS -->
+    
+    <div class="span9">
+      <div> {% for research in researches %}
+        <!--BOX FOR EACH LISTED ITEM-->
+        <div class="media box">
+          <!--RESEARCH THUMBNAIL-->
+            <div class="pull-left graph-link" style="background-image: url('{{ research.image.url }}{% if research.thumbnail %}{{ research.thumbnail.url }}{% endif %}');"><a href="{% if type == 'infographs' %}{{ research.get_infographs_url }}{% else %}{{ research.get_absolute_url }}{% endif %}"></div>
+
+          <!--END THUMBNAIL-->
+
+          <!--INTRO TEXT-->
+          <div class="media-body">
+            <h4><a href="{% if type == 'infographs' %}{{ research.get_infographs_url }}{% else %}{{ research.get_absolute_url }}{% endif %}/">{{ research.name }}</a></h4>
+            <div class="intro">
+            {{ research.abstract|truncatechars:250|safe }}
+            {{ research.explanation|truncatechars:250|safe }}
+           </div>
+         </div>
+         <!--END INTRO TEXT-->
+        </div>
+        <!--END BOX-->
+
+       {% endfor %}
+	<div id="all-pages">
+		{% if researches.has_previous %}
+		    <div id="previous-page"><a href="?page={{ researches.previous_page_number }}" >« претходна</a></div>
+		{% endif %}
+      <div id="pages">
+        <ul>
+                  {% for page_number in researches.paginator.num_pages|get_range %}
+  			{% ifequal page_number researches.number|subtract:1 %}
+  			    <li class="currentpage">{{ researches.number}}</li>
+  			{% else %}
+  			    <li> <a href="?page={{page_number|add:1}}">{{page_number|add:1}}</a> </li>
+  			{% endifequal %}
+  		    {% endfor %}</ul>
+      </div>
+		{% if researches.has_next %}
+		    <div id = "next-page"><a href="?page={{ researches.next_page_number }}">следна »</a></div>
+		{% endif %}
+	</div>
+      </div>
+
+    </div> <!--END LISTING-->
+
+    <!--SIDEBAR-->
+    <div class="span3">
+      <div id="demo1" class="cat demo jstree jstree-0 jstree-default jstree-focused">
+        <ul>
+          <li id="phtml_1" class="jstree-closed"><a href="http://rodovreactor.mk/subject/politics" id="pol" {% if subject.0.short_name == "политика" %}class="marked"{% endif %}>Политика<span></span></a>
+            <ul style="">
+              <li id="phtml_2" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/politics/data/" {% if type == 'data' and  subject.0.short_name == "политика" %} class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_3" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/politics/graphs/" {% if type == 'graphs' and subject.0.short_name == "политика" %} class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_4" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/politics/infographs/" {% if type == 'infographs' and subject.0.short_name == "политика" %}class="marked" {% endif %} ><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>
+          </li>
+
+          <li id="phtml_5" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/family" id="fam" {% if subject.0.short_name == "семејство" %}class="marked"{% endif %}>Семејство<span></span></a>
+            <ul style="">
+              <li id="phtml_6" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/family/data/" {% if type == 'data' and subject.0.short_name == "семејство" %} class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_7" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/family/graphs/" {% if type == 'graphs' and subject.0.short_name == "семејство" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_8" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/family/infographs/" {% if type == 'infographs' and subject.0.short_name == "семејство" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>  
+          </li>
+          <li id="phtml_9" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/economy" id="eco" {% if subject.0.short_name == "економија" %}class="marked"{% endif %}>Економија<span></span></a>
+            <ul style="">
+              <li id="phtml_10" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/economy/data/" {% if type == 'data' and subject.0.short_name == "економија" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_11" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/economy/graphs/" {% if type == 'graphs' and subject.0.short_name == "економија" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_12" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/economy/infographs/" {% if type == 'infographs' and subject.0.short_name == "економија" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>     
+          </li>
+          <li id="phtml_13" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/youth" id="youth"{% if subject.0.short_name == "млади" %}class="marked"{% endif %}><ins class="jstree-icon">&nbsp;</ins>Млади<span></span></a>
+            <ul style="">
+              <li id="phtml_14" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/youth/data/" {% if type == 'data' and subject.0.short_name == "млади" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_15" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/youth/graphs/" {% if type == 'graphs' and subject.0.short_name == "млади" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_16" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/youth/infographs/" {% if type == 'infographs' and subject.0.short_name == "млади" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+          <li id="phtml_17" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/urban" id="urban"{% if subject.0.short_name == "јавни<br/>простори" %}class="marked"{% endif %}><ins class="jstree-icon">&nbsp;</ins>Урбано планирање<span></span></a>
+            <ul style="">
+              <li id="phtml_18" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/urban/data/" {% if type == 'data' and subject.0.short_name == "јавни<br/>простори" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_19" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/urban/graphs/" {% if type == 'graphs' and subject.0.short_name == "јавни<br/>простори" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_20" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/urban/infographs/" {% if type == 'infographs' and subject.0.short_name == "јавни<br/>простори" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+          <li id="phtml_21" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/health" id="health" {% if subject.0.short_name == "здравје" %}class="marked"{% endif %}>Здравје<span></span></a>
+            <ul style="">
+              <li id="phtml_22" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/health/data/" {% if type == 'data' and subject.0.short_name == "здравје" %}class="marked" {% endif %} ><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_23" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/health/graphs/" {% if type == 'graphs' and subject.0.short_name == "здравје" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_24" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/health/infographs/" {% if type == 'infographs' and subject.0.short_name == "здравје" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+          <li id="phtml_25" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/education" id="edu" {% if subject.0.short_name == "образование" %}class="marked"{% endif %}>Образование<span></span><span></span></a>
+            <ul style="">
+              <li id="phtml_26" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/education/data/" {% if type == 'data' and subject.0.short_name == "образование" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_27" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/education/graphs/" {% if type == 'graphs' and subject.0.short_name == "образование" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_28" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/education/infographs/" {% if type == 'infographs' and subject.0.short_name == "образование" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+          <li id="phtml_29" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/social_welfare" id="soc" {% if subject.0.short_name == "социјална<br/>политика" %}class="marked"{% endif %}>Социјална политика<span></span></a>
+            <ul style="">
+              <li id="phtml_30" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/social_welfare/data/"{% if type == 'data' and subject.0.short_name == "социјална<br/>политика" %}class="marked" {% endif %} ><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_31" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/social_welfare/graphs/" {% if type == 'graphs' and subject.0.short_name == "социјална<br/>политика" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_32" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/social_welfare/infographs/" {% if type == 'infographs' and subject.0.short_name == "социјална<br/>политика" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+          <li id="phtml_33" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/other" id="other" {% if subject.0.short_name == "останати" %}class="marked"{% endif %}>Останати<span></span></a>
+            <ul style="">
+              <li id="phtml_34" class="jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/other/data/" {% if type == 'data' and subject.0.short_name == "останати" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Истражувања</a></li>
+              <li id="phtml_35" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/other/graphs/" {% if type == 'graphs' and subject.0.short_name == "останати" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Графици</a></li>
+              <li id="phtml_36" class="jstree-last jstree-leaf"><ins class="jstree-icon">&nbsp;</ins><a href="http://rodovreactor.mk/subject/other/infographs/" {% if type == 'infographs' and subject.0.short_name == "останати" %}class="marked" {% endif %}><ins class="jstree-icon">&nbsp;</ins>Инфографици</a></li>              
+            </ul>       
+          </li>
+
+        </ul>
+      </div>
+
+<script type="text/javascript" class="source below">
+          $(function () {    
+            var marked = document.getElementsByClassName('marked');
+            console.log(marked);
+            parent_marked = $('.marked').closest("li");
+            parrent_marked_id = parent_marked.attr('id');
+            console.log(parrent_marked_id);
+         
+            $("#demo1")
+              .bind("open_node.jstree close_node.jstree", function (e) {
+                $("#log1").html("Last operation: " + e.type);
+              })
+              .bind("select_node.jstree", function(event, data) {
+                // data.inst is the tree object, and data.rslt.obj is the node
+                 data.inst.toggle_node(data.rslt.obj);
+              })
+              .jstree({ "plugins" : [ "themes", "html_data" ], "core" : { "initially_open" : [ parrent_marked_id ]} });
+            });
+
+             $("#demo1").delegate("a[id]","click", function (e) {
+               $("#demo1").jstree("toggle_node", this);
+               e.preventDefault();
+               return false;
+            });
+
+            $("#demo1").bind("open_node.jstree", function (e, data) { 
+              not_marked_parent = $("a:not(.marked)").closest("li");
+              data.rslt.obj.siblings().filter(not_marked_parent).each(function () { 
+                data.inst.close_node(this); 
+              });
+            }); 
+</script>
+            
+<!--       <div class="other">
+        <ul>
+          <li>
+            <a href="{% if type == 'data' %}../graphs"><span>Графици</span></a>{% endif %}{% if type == 'graphs' %}../data"><span>Истражувања</span></a>{% endif %}{% if type == 'infographs' %}../data"><span>Истражувања</span></a>{% endif %}
+          </li>
+          <li>
+            <a href="{% if type == 'data' %}../infographs"><span>Инфографици</span></a>{% endif %}{% if type == 'graphs' %}../infographs"><span>Инфографици</span></a>{% endif %}{% if type == 'infographs' %}../graphs"><span>Графици</span></a>{% endif %}
+          </li>
+        </ul> 
+      </div> -->
+
+
+    </div><!--END SIDEBAR-->
+
+{% endblock %}

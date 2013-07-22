@@ -1,0 +1,5 @@
+{{ object.name }}
+{{ object.abstract }}
+{{ object.methodology }}
+{{ object.year }}
+{{ object.slug }}
