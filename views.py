@@ -9,39 +9,6 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import itertools
 
 
-def weather_chart_view(request):
-    #Step 1: Create a DataPool with the data we want to retrieve.
-    weatherdata = \
-        DataPool(
-           series=
-            [{'options': {
-               'source': Vraboteni.objects.all()},
-              'terms': [
-                'id',
-                'broj']}
-             ])
-
-    #Step 2: Create the Chart object
-    cht = Chart(
-            datasource = weatherdata,
-            series_options =
-              [{'options':{
-                  'type': 'line',
-                  'stacking': False},
-                'terms':{
-                  'id': [
-                    'broj',]
-                  }}],
-            chart_options =
-              {'title': {
-                   'text': 'Broj na vraboteni po pol'},
-               'xAxis': {
-                    'title': {
-                       'text': 'Pol'}}})
-
-    #Step 3: Send the chart object to the template.
-    return render_to_response('base.html', {'weatherchart': cht})
-
 def subject(requesti, subject):
 
     subject = Subject.objects.filter(url_id = subject)
@@ -127,7 +94,7 @@ def single(request, subject, types, slug):
 	    message = form.cleaned_data['message']
 	    sender = form.cleaned_data['sender']
 
-	    recipients = ['info@reactor.org.mk']
+	    recipients = ['example@gmail.com']
 
 	    from django.core.mail import send_mail
 	    send_mail(subject, message, sender, recipients)
