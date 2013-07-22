@@ -1,0 +1,27 @@
+Rodov Reactor is a visualized data bank.
+It contains gender based statistics for Republic of Macedonia in every aspect and from many sources.
+It was the initial though behind the project.
+
+Of course, it can be used as a data bank for everything.
+
+Rodov Reactor uses:
+
+Highcharts: http://www.highcharts.com/ - for the visuelization of data
+Haystack: http://haystacksearch.org/ - specifically whoosh module for search
+
+Highcharts can generate graphs directly from a database, but we had many numbers that were spread out,
+and we were searching them manually in the different publications, so we decided to create separate files with the data,
+grouped by the same name for the different representation and create them one by one.
+
+Reactor is consisted of senior and junior researchers + IT team, and this was also the only way the junior researchers 
+can make their own graphs and just upload them trouhg the admin panel.
+
+This is just version 1.0.
+
+A very different team of very different people was working on this, so it has space for much improvement.
+
+Version 2.0 should contain:
+
+1. Better and easier graph creation and upload;
+2. Better division and navigation;
+
